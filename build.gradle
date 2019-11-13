@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+}
+
+group 'com.intland.codebeamer'
+version '1.0-SNAPSHOT'
+
+def codeBeamerInstallDir = '{codeBeamer installation directory}'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    archiveFileName = 'widgets.jar'
+}
+
+task deploy(type: Copy) {
+    dependsOn 'build'
+    from jar.archiveFile
+    into "${codeBeamerInstallDir}/tomcat/webapps/cb/WEB-INF/lib"
+}
+
+task stopCBLinux() {
+    doLast {
+        exec {
+            executable "${codeBeamerInstallDir}/bin/stop"
+        }
+    }
+}
+
+task startCBLinux() {
+    doLast {
+        exec {
+            executable "${codeBeamerInstallDir}/bin/startup"
+        }
+    }
+}
+
+dependencies {
+    compile "org.springframework:spring-beans:3.2.11.RELEASE"
+    compile "org.springframework:spring-context:3.2.11.RELEASE"
+    compile "com.fasterxml.jackson.core:jackson-annotations:2.5.4"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.5.4"
+    compile "org.apache.velocity:velocity:1.7"
+    compile "org.apache.commons:commons-lang3:3.7"
+    compile "javax.servlet:servlet-api:2.5"
+    implementation files("${codeBeamerInstallDir}/tomcat/webapps/cb/WEB-INF/lib/cb.jar")
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
