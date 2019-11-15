@@ -1,11 +1,22 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.boazj.gradle:gradle-log-plugin:0.1.0'
+    }
+}
+
 plugins {
     id 'java'
 }
 
+apply plugin: 'com.boazj.log'
+
 group 'com.intland.codebeamer'
 version '1.0-SNAPSHOT'
 
-def codeBeamerInstallDir = '{codeBeamer installation directory}'
+def codeBeamerInstallDir = '/Users/kissbalazsev/Documents/Training/Advanced/CB-9.5.0-LTS'
 
 sourceCompatibility = 1.8
 
@@ -37,6 +48,10 @@ task startCBLinux() {
             executable "${codeBeamerInstallDir}/bin/startup"
         }
     }
+}
+
+task showCBLogs(type: com.boazj.gradle.log.tasks.TailLogTask) {
+    log = files("${codeBeamerInstallDir}/tomcat/logs/cb.txt")
 }
 
 dependencies {
