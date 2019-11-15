@@ -12,7 +12,8 @@ import java.text.MessageFormat;
 @Qualifier("helloWorldWidgetHtmlRenderer")
 public class HelloWorldWidgetHtmlRenderer implements Renderer<HelloWorldWidget> {
 
-	public String render(final RenderingContext renderingContext, final HelloWorldWidget demoWidget) {
-		return "<strong>Hello World!</strong>";
+	public String render(final RenderingContext renderingContext, final HelloWorldWidget helloWidget) {
+		StringAttribute welcomeTextAttribute = (StringAttribute) helloWidget.getAttributes().get(HelloWorldWidget.Attributes.WELCOME_TEXT.getKey());
+		return MessageFormat.format("<strong>{0}</strong>", welcomeTextAttribute.getValue());
 	}
 }

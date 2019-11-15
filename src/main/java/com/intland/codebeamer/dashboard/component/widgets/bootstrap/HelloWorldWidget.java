@@ -23,12 +23,36 @@ public class HelloWorldWidget extends AbstractWidget {
 
 	private static final String VERSION = "1.0.0";
 
+	public enum Attributes implements WidgetAttributeWrapper {
+		WELCOME_TEXT("Welcome text", new StringAttribute("Hello World!", true, true));
+
+		private String key;
+		private WidgetAttribute<?> defaultValue;
+
+		Attributes(String key, WidgetAttribute<?> defaultValue) {
+			this.key = key;
+			this.defaultValue = defaultValue;
+		}
+
+		@Override
+		public String getKey() {
+			return key;
+		}
+
+		@Override
+		public WidgetAttribute<?> getDefaultValue() {
+			return defaultValue;
+		}
+	}
+
 	private final Renderer<HelloWorldWidget> htmlRenderer;
 	private final Renderer<HelloWorldWidget> editorRenderer;
 
 
 	public static Map<String, WidgetAttribute> getDescriptor() {
-		return new HashMap<>();
+		HashMap<String, WidgetAttribute> descriptor = new HashMap<>();
+		descriptor.put(Attributes.WELCOME_TEXT.getKey(), Attributes.WELCOME_TEXT.getDefaultValue());
+		return descriptor;
 	}
 	/**
 	 * @param id
