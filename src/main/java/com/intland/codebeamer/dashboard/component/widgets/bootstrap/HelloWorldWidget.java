@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.intland.codebeamer.dashboard.component.common.RenderingContext;
 import com.intland.codebeamer.dashboard.component.common.interfaces.Renderer;
+import com.intland.codebeamer.dashboard.component.widgets.bootstrap.attributes.EmailAttribute;
 import com.intland.codebeamer.dashboard.component.widgets.common.AbstractWidget;
 import com.intland.codebeamer.dashboard.component.widgets.common.WidgetAttributeWrapper;
 import com.intland.codebeamer.dashboard.component.widgets.common.attribute.StringAttribute;
@@ -24,7 +25,8 @@ public class HelloWorldWidget extends AbstractWidget {
 	private static final String VERSION = "1.0.0";
 
 	public enum Attributes implements WidgetAttributeWrapper {
-		WELCOME_TEXT("Welcome text", new StringAttribute("Hello World!", true, true));
+		WELCOME_TEXT("Welcome text", new StringAttribute("Hello World!", true, true)),
+		USER_EMAIL("User email", new EmailAttribute("", true, true));
 
 		private String key;
 		private WidgetAttribute<?> defaultValue;
@@ -52,6 +54,7 @@ public class HelloWorldWidget extends AbstractWidget {
 	public static Map<String, WidgetAttribute> getDescriptor() {
 		HashMap<String, WidgetAttribute> descriptor = new HashMap<>();
 		descriptor.put(Attributes.WELCOME_TEXT.getKey(), Attributes.WELCOME_TEXT.getDefaultValue());
+		descriptor.put(Attributes.USER_EMAIL.getKey(), Attributes.USER_EMAIL.getDefaultValue());
 		return descriptor;
 	}
 	/**
