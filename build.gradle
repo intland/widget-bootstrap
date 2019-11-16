@@ -17,6 +17,7 @@ group 'com.intland.codebeamer'
 version '1.0-SNAPSHOT'
 
 def codeBeamerInstallDir = '/Users/kissbalazsev/Documents/Training/Advanced/CB-9.5.0-LTS'
+def widgetsJarName = 'widgets.jar'
 
 sourceCompatibility = 1.8
 
@@ -25,13 +26,17 @@ repositories {
 }
 
 jar {
-    archiveFileName = 'widgets.jar'
+    archiveFileName = widgetsJarName
 }
 
 task deploy(type: Copy) {
     dependsOn 'build'
     from jar.archiveFile
     into "${codeBeamerInstallDir}/tomcat/webapps/cb/WEB-INF/lib"
+}
+
+task cleanDeploy(type: Delete) {
+    delete "${codeBeamerInstallDir}/tomcat/webapps/cb/WEB-INF/lib/${widgetsJarName}"
 }
 
 task stopCBLinux() {
