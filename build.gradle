@@ -71,10 +71,13 @@ task showCBLogs(type: com.boazj.gradle.log.tasks.TailLogTask) {
 dependencies {
     compile "org.springframework:spring-beans:3.2.11.RELEASE"
     compile "org.springframework:spring-context:3.2.11.RELEASE"
+    compile "org.springframework:spring-tx:3.2.11.RELEASE"
     compile "com.fasterxml.jackson.core:jackson-annotations:2.5.4"
     compile "com.fasterxml.jackson.core:jackson-databind:2.5.4"
     compile "org.apache.velocity:velocity:1.7"
     compile "org.apache.commons:commons-lang3:3.7"
+    compile "org.mybatis:mybatis-spring:2.0.3"
+    compile "displaytag:displaytag:1.2"
     compile "javax.servlet:servlet-api:2.5"
     implementation files("${codeBeamerInstallDir}/tomcat/webapps/cb/WEB-INF/lib/cb.jar")
 
