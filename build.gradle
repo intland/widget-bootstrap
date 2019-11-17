@@ -55,6 +55,14 @@ task startCBLinux() {
     }
 }
 
+task restartCBLinux() {
+    doLast {
+        exec {
+            executable "${codeBeamerInstallDir}/bin/restart"
+        }
+    }
+}
+
 task showCBLogs(type: com.boazj.gradle.log.tasks.TailLogTask) {
     log = files("${codeBeamerInstallDir}/tomcat/logs/cb.txt")
 }
