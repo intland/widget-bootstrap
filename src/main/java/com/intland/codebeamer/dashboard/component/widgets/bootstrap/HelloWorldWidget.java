@@ -68,8 +68,15 @@ public class HelloWorldWidget extends AbstractWidget {
                             @JacksonInject("helloWorldWidgetEditorRenderer") final Renderer<HelloWorldWidget> editorRenderer) {
 		super(id, attributes);
 
+		addDefaultAttributes(this.attributes);
+
 		this.htmlRenderer = htmlRenderer;
 		this.editorRenderer = editorRenderer;
+	}
+
+	private void addDefaultAttributes(final Map<String, WidgetAttribute> attributes) {
+		attributes.putIfAbsent(HelloWorldWidget.Attributes.WELCOME_TEXT.getKey(), HelloWorldWidget.Attributes.WELCOME_TEXT.getDefaultValue());
+		attributes.putIfAbsent(HelloWorldWidget.Attributes.USER_EMAIL.getKey(), HelloWorldWidget.Attributes.USER_EMAIL.getDefaultValue());
 	}
 
 	public String getTypeName() {
