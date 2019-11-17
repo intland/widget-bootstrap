@@ -8,12 +8,14 @@ import com.intland.codebeamer.dashboard.component.common.RenderingContext;
 import com.intland.codebeamer.dashboard.component.common.interfaces.Renderer;
 import com.intland.codebeamer.dashboard.component.widgets.common.AbstractWidget;
 import com.intland.codebeamer.dashboard.component.widgets.common.WidgetAttributeWrapper;
-import com.intland.codebeamer.dashboard.component.widgets.common.attribute.StringAttribute;
+import com.intland.codebeamer.dashboard.component.widgets.common.attribute.ProjectAttribute;
+import com.intland.codebeamer.dashboard.component.widgets.common.attribute.TrackerAttribute;
 import com.intland.codebeamer.dashboard.component.widgets.common.attribute.WidgetAttribute;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,12 +25,38 @@ public class HelloWorldWidget extends AbstractWidget {
 
 	private static final String VERSION = "1.0.0";
 
+	public enum Attributes implements WidgetAttributeWrapper {
+		PROJECT("project", new ProjectAttribute(Collections.emptyList(), true, false)),
+		TRACKER("tracker", new TrackerAttribute(Collections.emptyList(), true, false));
+
+		private String key;
+		private WidgetAttribute<?> defaultValue;
+
+		Attributes(String key, WidgetAttribute<?> defaultValue) {
+			this.key = key;
+			this.defaultValue = defaultValue;
+		}
+
+		@Override
+		public String getKey() {
+			return key;
+		}
+
+		@Override
+		public WidgetAttribute<?> getDefaultValue() {
+			return defaultValue;
+		}
+	}
+
 	private final Renderer<HelloWorldWidget> htmlRenderer;
 	private final Renderer<HelloWorldWidget> editorRenderer;
 
 
 	public static Map<String, WidgetAttribute> getDescriptor() {
-		return new HashMap<>();
+		HashMap<String, WidgetAttribute> descriptor = new HashMap<>();
+		descriptor.put(Attributes.PROJECT.getKey(), Attributes.PROJECT.getDefaultValue());
+		descriptor.put(Attributes.TRACKER.getKey(), Attributes.TRACKER.getDefaultValue());
+		return descriptor;
 	}
 	/**
 	 * @param id
