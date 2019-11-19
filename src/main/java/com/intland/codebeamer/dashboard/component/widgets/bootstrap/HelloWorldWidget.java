@@ -8,8 +8,7 @@ import com.intland.codebeamer.dashboard.component.common.RenderingContext;
 import com.intland.codebeamer.dashboard.component.common.interfaces.Renderer;
 import com.intland.codebeamer.dashboard.component.widgets.common.AbstractWidget;
 import com.intland.codebeamer.dashboard.component.widgets.common.WidgetAttributeWrapper;
-import com.intland.codebeamer.dashboard.component.widgets.common.attribute.ProjectAttribute;
-import com.intland.codebeamer.dashboard.component.widgets.common.attribute.TrackerAttribute;
+import com.intland.codebeamer.dashboard.component.widgets.common.attribute.IntegerAttribute;
 import com.intland.codebeamer.dashboard.component.widgets.common.attribute.WidgetAttribute;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -26,8 +25,7 @@ public class HelloWorldWidget extends AbstractWidget {
 	private static final String VERSION = "1.0.0";
 
 	public enum Attributes implements WidgetAttributeWrapper {
-		PROJECT("project", new ProjectAttribute(Collections.emptyList(), true, false)),
-		TRACKER("tracker", new TrackerAttribute(Collections.emptyList(), true, false));
+		TRACKER_ITEM_ID("tracker item id", new IntegerAttribute(0, true, false));
 
 		private String key;
 		private WidgetAttribute<?> defaultValue;
@@ -54,8 +52,7 @@ public class HelloWorldWidget extends AbstractWidget {
 
 	public static Map<String, WidgetAttribute> getDescriptor() {
 		HashMap<String, WidgetAttribute> descriptor = new HashMap<>();
-		descriptor.put(Attributes.PROJECT.getKey(), Attributes.PROJECT.getDefaultValue());
-		descriptor.put(Attributes.TRACKER.getKey(), Attributes.TRACKER.getDefaultValue());
+		descriptor.put(Attributes.TRACKER_ITEM_ID.getKey(), Attributes.TRACKER_ITEM_ID.getDefaultValue());
 		return descriptor;
 	}
 	/**
@@ -76,8 +73,7 @@ public class HelloWorldWidget extends AbstractWidget {
 	}
 
 	private void addDefaultAttributes(final Map<String, WidgetAttribute> attributes) {
-		attributes.putIfAbsent(HelloWorldWidget.Attributes.PROJECT.getKey(), HelloWorldWidget.Attributes.PROJECT.getDefaultValue());
-		attributes.putIfAbsent(HelloWorldWidget.Attributes.TRACKER.getKey(), HelloWorldWidget.Attributes.TRACKER.getDefaultValue());
+		attributes.putIfAbsent(HelloWorldWidget.Attributes.TRACKER_ITEM_ID.getKey(), HelloWorldWidget.Attributes.TRACKER_ITEM_ID.getDefaultValue());
 	}
 
 	public String getTypeName() {
